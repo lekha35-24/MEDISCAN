@@ -1,0 +1,17 @@
+numpy
+pandas 
+opencv-python
+pillow
+matplotlib
+scikit-learn
+torch
+torchvision
+torchaudio
+ultralytics
+easyocr
+paddleocr
+spacy
+rapidfuzz
+fastapi
+uvicorn
+streamlit
