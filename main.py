@@ -78,9 +78,10 @@ if __name__ == "__main__":
         batch = extract_batch_number(path)
         print("Batch Number:", batch if batch else "Not detected")
 
-        expiry_status, expiry_conf = check_expiry_validity(path)
+        expiry_status, expiry_conf, expiry_date= check_expiry_validity(path)
         print("Expiry Status:", expiry_status)
 
+        print("Expiry Date:", expiry_date if expiry_date else "Not detected")
         result, conf = predict_counterfeit(model, img)
         final = decide(result, conf, batch, expiry_status, is_back_side)
 
