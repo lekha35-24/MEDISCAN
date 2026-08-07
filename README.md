@@ -1,51 +1,38 @@
-## Setup
+# MediScan-Net 💊🔍
 
-```bash
-git clone https://github.com/lekha35-24/MEDISCAN.git
-cd MEDISCAN
-pip install torch torchvision opencv-python easyocr scikit-learn matplotlib
-```
+**AI-powered counterfeit medicine detection through visual authentication and OCR-based label verification.**
 
-## Usage
+MediScan-Net combines a fine-tuned ResNet-18 classifier with Grad-CAM explainability and a rotation-invariant OCR pipeline to help verify medicine packaging authenticity and check expiry/batch validity — without specialized hardware.
 
-**Train:**
-```bash
-python train_model.py
-```
+## The Problem
 
-**Evaluate:**
-```bash
-python evaluatemodel.py
-```
+The WHO estimates nearly 10% of medical products in developing countries are substandard or falsified, contributing to treatment failure and rising antibiotic resistance. Existing anti-counterfeiting methods (holograms, QR codes, RFID) protect the supply chain but don't let a consumer verify the actual product in their hand.
 
-**Run inference:**
-```bash
-python main.py
-# Enter 1
-# Enter image path when prompted
-```
+## What It Does
 
-## Results
+MediScan-Net runs two independent verification pipelines on a single photo and fuses the results into one transparent verdict:
 
-> Populate this section with real numbers from `evaluatemodel.py` — accuracy, precision, recall, F1, ROC-AUC — before publishing.
+- **Visual Authentication** — a fine-tuned ResNet-18 CNN classifies packaging as genuine or counterfeit, with Grad-CAM heatmaps showing exactly which regions influenced the decision.
+- **OCR Label Verification** — a rotation-invariant, dual-preprocessing OCR pipeline extracts and validates expiry dates and batch numbers directly from the strip.
+- **Decision Fusion** — combines both signals into a confidence-tiered verdict (e.g. `LIKELY GENUINE`, `SUSPICIOUS`, `REJECTED: Expired`, `UNCERTAIN`), and is explicit about which signal it's relying on when one is missing.
 
-## Limitations
+## Features
 
-- Verifies packaging authenticity and label validity — **not** chemical composition. Not a substitute for laboratory-based drug verification.
-- Performance depends on image quality, lighting, and viewing angle.
-- OCR reliability decreases on heavily degraded, embossed-only, or very low-contrast printed text.
-- Trained on a limited, self-collected dataset — generalization across all manufacturer packaging designs is not yet validated.
+- 🧠 Transfer-learning CNN (ResNet-18, ImageNet-pretrained, `layer4` fine-tuned)
+- 🔥 Grad-CAM visual explainability on every prediction
+- 🔄 4-way rotation-invariant OCR with a fast orientation pre-scan
+- 📅 Label-aware expiry parsing — handles both numeric (`05/2026`) and month-name (`JUL 2026`) formats, distinguishes MFG from EXP dates
+- ⚖️ Rule-based decision fusion with confidence tiers, never a silent single-signal guess
+- 🧹 Dataset integrity tooling — duplicate-hash checker across train/val/test splits, synthetic-file cleanup utility
 
-## Future Work
+## Tech Stack
 
-- Prescription-equivalence validation via NLP-based drug-name matching
-- Lightweight backbone (MobileNetV3) for on-device mobile deployment
-- Expanded, more diverse training dataset
+| Layer | Tools |
+|---|---|
+| Deep Learning | PyTorch, torchvision (ResNet-18) |
+| OCR | EasyOCR, OpenCV (CLAHE, Otsu thresholding) |
+| Explainability | Custom Grad-CAM (hook-based) |
+| Evaluation | scikit-learn, Matplotlib |
+| Language | Python 3 |
 
-## License
-
-[Add your license here]
-
-## Contact
-
-[Your name / email / GitHub]
+## Project Structure
