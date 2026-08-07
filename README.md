@@ -1,32 +1,51 @@
-# MediScan
+## Setup
 
-AI-based system to detect whether a medicine is real or fake using image analysis and text extraction.
+```bash
+git clone https://github.com/lekha35-24/MEDISCAN.git
+cd MEDISCAN
+pip install torch torchvision opencv-python easyocr scikit-learn matplotlib
+```
 
-## Overview
-MediScan analyzes medicine packaging using deep learning and OCR to verify authenticity and extract important details like batch number and expiry date.
+## Usage
 
-## Features
-- Detects counterfeit medicines using AI
-- Extracts batch number using OCR
-- Validates expiry date
-- Image-based analysis of packaging
+**Train:**
+```bash
+python train_model.py
+```
 
-## How it works
-1. User uploads a medicine image
-2. AI model analyzes packaging
-3. System extracts text (batch & expiry)
-4. Displays result (Real/Fake + details)
+**Evaluate:**
+```bash
+python evaluatemodel.py
+```
 
-## Tech Used
-- Python
-- PyTorch / CNN
-- OpenCV
-- OCR (EasyOCR / Tesseract)
+**Run inference:**
+```bash
+python main.py
+# Enter 1
+# Enter image path when prompted
+```
 
-## Output
-- Prediction: Real or Fake  
-- Batch number  
-- Expiry status  
+## Results
 
-## Author
-Chithralekha
+> Populate this section with real numbers from `evaluatemodel.py` — accuracy, precision, recall, F1, ROC-AUC — before publishing.
+
+## Limitations
+
+- Verifies packaging authenticity and label validity — **not** chemical composition. Not a substitute for laboratory-based drug verification.
+- Performance depends on image quality, lighting, and viewing angle.
+- OCR reliability decreases on heavily degraded, embossed-only, or very low-contrast printed text.
+- Trained on a limited, self-collected dataset — generalization across all manufacturer packaging designs is not yet validated.
+
+## Future Work
+
+- Prescription-equivalence validation via NLP-based drug-name matching
+- Lightweight backbone (MobileNetV3) for on-device mobile deployment
+- Expanded, more diverse training dataset
+
+## License
+
+[Add your license here]
+
+## Contact
+
+[Your name / email / GitHub]
