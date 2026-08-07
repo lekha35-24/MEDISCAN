@@ -36,3 +36,50 @@ MediScan-Net runs two independent verification pipelines on a single photo and f
 | Language | Python 3 |
 
 ## Project Structure
+mediscan-net/
+├── train_model.py # ResNet-18 fine-tuning
+├── counterfeit_model.py # Model loading, inference, Grad-CAM
+├── expiry_checker.py # OCR-based expiry/date extraction
+├── batch_ocr.py # Batch number extraction, text density
+├── main.py # CLI entry point — fused decision pipeline
+├── evaluatemodel.py # Confusion matrix, ROC-AUC, classification report
+├── prepare_data.py # Train/val split
+├── split_dataset.py # Held-out test split
+├── check.py # Cross-split duplicate detection
+├── cleanup.py # Synthetic/augmented file cleanup
+├── add_to_fixed_test.py # Append new real-world test images
+├── dataset/
+│ ├── train/{Fake,Real}
+│ ├── val/{Fake,Real}
+│ └── test/{Fake,Real}
+└── models/
+└── best_model.pth
+
+## Results
+
+> Populate this section with real numbers from `evaluatemodel.py` — accuracy, precision, recall, F1, ROC-AUC — before publishing.
+
+## Limitations
+
+- Verifies packaging authenticity and label validity — **not** chemical composition. Not a substitute for laboratory-based drug verification.
+- Performance depends on image quality, lighting, and viewing angle.
+- OCR reliability decreases on heavily degraded, embossed-only, or very low-contrast printed text.
+- Trained on a limited, self-collected dataset — generalization across all manufacturer packaging designs is not yet validated.
+
+## Future Work
+
+- Prescription-equivalence validation via NLP-based drug-name matching
+- Lightweight backbone (MobileNetV3) for on-device mobile deployment
+- Expanded, more diverse training dataset
+
+
+## Author
+
+Chithralekha B
+Chithralatha B
+
+
+
+
+
+
